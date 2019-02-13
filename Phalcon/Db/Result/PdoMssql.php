@@ -87,7 +87,7 @@ class PdoMssql extends Pdo
         $this->_cursor_pos = $number;
     }
     
-    public function setFetchMode($fetchMode) {
+    public function setFetchMode($fetchMode, $colNoOrClassNameOrObject = NULL, $ctorargs = NULL) {
         $this->_fetch_mode = $fetchMode;
     }
 }

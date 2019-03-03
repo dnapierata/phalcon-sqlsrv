@@ -53,6 +53,7 @@ class Mssql extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInterf
 
         $options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
         $options[\PDO::ATTR_STRINGIFY_FETCHES] = true;
+        $options[\PDO::SQLSRV_ATTR_FORMAT_DECIMALS] = true;
         
         if (!isset($descriptor['name'])) {
             $descriptor['name'] = $this->_type;

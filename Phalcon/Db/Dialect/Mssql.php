@@ -17,6 +17,26 @@ class Mssql extends \Phalcon\Db\Dialect
      * @var string
      */
     protected $_escapeChar = '"';
+    
+    public function __construct()
+    {
+        $this->registerCustomFunctions();
+    }
+
+    public function registerCustomFunctions()
+    {
+        // IMPORTANT! The first argument of DATEADD must be quoted to avoid the phql parser
+        // We strip out that quote here
+        $this->registerCustomFunction('DATEADD', function ($dialect, $expression) {
+            $arguments = $expression['arguments'];
+            return sprintf(
+                "DATEADD(%s, %s, %s)",
+                str_replace("'", '', $dialect->getSqlExpression($arguments[0])),
+                $dialect->getSqlExpression($arguments[1]),
+                $dialect->getSqlExpression($arguments[2])
+            );
+        });
+    }
 
     /**
      * Generates the SQL for LIMIT clause
